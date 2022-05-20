@@ -53,7 +53,7 @@ def start(m, res=False):
         id = m.chat.id
         bot.send_sticker(m.chat.id,
                          'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(m.chat.id, 'здравствуйте я sotsbot и я узнаю ваше настроение и помогу вам развится и повесилится')
+        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!')
 
 
 # Получение сообщений от юзера
@@ -103,7 +103,7 @@ def text(message):
     if message.text == q:
         bot.send_message(id, 'правильно')
     else:
-        bot.send_message(id, 'ты бот а я бог')
+        bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
     print(message.chat.id, message.text)
 
     device.publish("client_sasha/social_bot", message.text)
