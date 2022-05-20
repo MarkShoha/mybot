@@ -55,7 +55,19 @@ def start(m, res=False):
                          'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
         bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!')
 
-
+@bot.message_handler(commands=["anekdot"])
+def sanekdot(m, res=False):
+    first2 = [ 'Ещё в годы правления императрицы Елизаветы был издан указ, запрещающий взяточничество государственных чиновников. Скажите, а когда этот указ вступит в силу?  ','Если ребенок не хочет есть мясо, чем его заменить? — Собакой. Собака всегда хочет есть мясо.','Есть французская пословица: всю первую половину жизни мы ждём вторую, а всю вторую — вспоминаем первую...','Победитель тот, кто встает на один раз больше, чем падает.']
+    msg = random.choice(first2)
+    # Отправляем текст в Телеграм
+    print(msg)
+    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg)
+@bot.message_handler(commands=["film"])
+def sfilm(m, res=False):
+    first12 = ['бегущий в лабиринте', 'люси', 'человек паук нет пути домой', 'конек горбунок']
+    msg = random.choice(first12)
+    # Отправляем текст в Телеграм
+    bot.send_message(m.chat.id, 'вы выбрали фильмы: \nФильм: ' + msg)
 # Получение сообщений от юзера
 # @bot.message_handler(content_types=["text"])
 # def handle_text(message):
@@ -63,6 +75,7 @@ def start(m, res=False):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
+
     first = ['Сколько месяцев в году имеют 28 дней?',  'Что в огне не горит и в воде не тонет?',
              'Кого австралийцы называют морской осой?']
 
