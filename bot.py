@@ -53,7 +53,7 @@ def start(m, res=False):
         id = m.chat.id
         bot.send_sticker(m.chat.id,
                          'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы прочитать анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
+        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
 
 @bot.message_handler(commands=["anekdot"])
 def sanekdot(m, res=False):
