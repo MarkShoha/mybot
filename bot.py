@@ -3,7 +3,8 @@ import random
 # Подключаем модуль для Телеграма
 import telebot
 from paho.mqtt.client import Client
-
+global r
+r=0
 bot = telebot.TeleBot('5146873101:AAFJ79AWuv2Zf20pfi9eKzN-AgNGEyWHNK0')
 # Импортируем типы из модуля, чтобы создавать кнопки
 from telebot import types
@@ -85,8 +86,7 @@ def sutki(m, res=False):
         bot.send_message(m.chat.id,'БЫВАЕТ')
     elif m.text == 'выходные':
         bot.send_message(m.chat.id,'ХАРОШ')
-    else:
-        bot.send_message(m.chat.id,'ПЛОХ')
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
@@ -109,7 +109,7 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id,'вы выбрали фильмы: \nФильм: ' +msg)
     if call.data == "zodiac":
         # Формируем гороскоп
-
+        r+=1
         msg = first[g]
 
         # Отправляем текст в Телеграм
@@ -124,14 +124,14 @@ def callback_worker(call):
 
 @bot.message_handler(content_types=['text'])
 def text(message):
-
-    q = q_f[g]
-    print(id,q)
-    if message.text == q:
-        bot.send_message(id, 'правильно')
-    else:
-        bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
-    print(message.chat.id, message.text)
+    if r >= 1:
+        q = q_f[g]
+        print(id,q)
+        if message.text == q:
+            bot.send_message(id, 'правильно')
+        else:
+            bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
+        print(message.chat.id, message.text)
 
     device.publish("client_sasha/social_bot", message.text)
 
