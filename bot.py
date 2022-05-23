@@ -53,7 +53,7 @@ def start(m, res=False):
         id = m.chat.id
         bot.send_sticker(m.chat.id,
                          'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
+        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.\nНапиши /sutki чтобы выбрать часть недели')
 
 @bot.message_handler(commands=["anekdot"])
 def sanekdot(m, res=False):
@@ -79,11 +79,14 @@ def sfilm(m, res=False):
 # def handle_text(message):
 @bot.message_handler(commands=["sutki"])
 def sutki(m, res=False):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("будни")
-    btn2 = types.KeyboardButton("выходные")
-    markup.add(btn1, btn2)
-    bot.send_message(m.chat.id,'выбери часть недели')
+
+    bot.send_message(m.chat.id,'напиши часть недели будни / выходные')
+    if m.text == 'будни':
+        bot.send_message(m.chat.id,'БЫВАЕТ')
+    elif m.text == 'выходные':
+        bot.send_message(m.chat.id,'ХАРОШ')
+    else:
+        bot.send_message(m.chat.id,'ПЛОХ')
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
