@@ -72,7 +72,15 @@ def sfilm(m, res=False):
 # @bot.message_handler(content_types=["text"])
 # def handle_text(message):
 
-
+@bot.message_handler(commands=["sutki"])
+def sutki(m, res=False):
+    keyboard = types.InlineKeyboardMarkup()
+    # По очереди готовим текст и обработчик для каждого знака зодиака
+    key_oven1 = types.InlineKeyboardButton(text='будни', callback_data='zodiac21')
+    # И добавляем кнопку на экран
+    keyboard.add(key_oven1)
+    key_telec1 = types.InlineKeyboardButton(text='выходные', callback_data='zodiac121')
+    keyboard.add(key_telec1)
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
