@@ -53,7 +53,7 @@ def start(m, res=False):
         id = m.chat.id
         bot.send_sticker(m.chat.id,
                          'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
+        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.\nНапиши /sutki чтобы выбрать часть недели')
 
 @bot.message_handler(commands=["anekdot"])
 def sanekdot(m, res=False):
@@ -81,6 +81,7 @@ def sutki(m, res=False):
     keyboard.add(key_oven1)
     key_telec1 = types.InlineKeyboardButton(text='выходные', callback_data='zodiac121')
     keyboard.add(key_telec1)
+    bot.send_message(m.chat.id,'выбери часть недели')
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
