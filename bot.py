@@ -74,14 +74,13 @@ def sfilm(m, res=False):
 
 @bot.message_handler(commands=["sutki"])
 def sutki(m, res=False):
-    keyboard1 = types.InlineKeyboardMarkup()
-    # По очереди готовим текст и обработчик для каждого знака зодиака
-    key_oven1 = types.InlineKeyboardButton(text='будни', callback_data='zodiac21')
-    # И добавляем кнопку на экран
-    keyboard1.add(key_oven1)
-    key_telec1 = types.InlineKeyboardButton(text='выходные', callback_data='zodiac121')
-    keyboard1.add(key_telec1)
-    bot.send_message(m.chat.id,'выбери часть недели')
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    button_1 = types.KeyboardButton(text="будни")
+    keyboard.add(button_1)
+    button_2 = "выходные"
+    keyboard.add(button_2)
+
+    await m.answer("", reply_markup=keyboard)
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
@@ -102,14 +101,7 @@ def callback_worker(call):
 
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'вы выбрали фильмы: \nФильм: ' +msg)
-    if call.data == "zodiac21":
 
-        bot.send_message(call.message.chat.id,'ХАРОШ')
-    if call.data == "zodiac121":
-        # Формируем гороскоп
-
-        # Отправляем текст в Телеграм
-        bot.send_message(call.message.chat.id,'ХАРОШ')
     if call.data == "zodiac":
         # Формируем гороскоп
 
