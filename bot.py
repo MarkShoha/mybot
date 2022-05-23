@@ -99,9 +99,17 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id,'Вы выбрали анекдот.\nАндекдот: '+ msg)
     if call.data == "zodiac12":
         # Формируем гороскоп
-        msg = random.choice(first12)
+
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'вы выбрали фильмы: \nФильм: ' +msg)
+    if call.data == "zodiac21":
+
+        bot.send_message(call.message.chat.id,'ХАРОШ')
+    if call.data == "zodiac121":
+        # Формируем гороскоп
+
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'ХАРОШ')
     if call.data == "zodiac":
         # Формируем гороскоп
 
