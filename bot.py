@@ -80,7 +80,7 @@ def sutki(m, res=False):
     button_2 = "выходные"
     keyboard.add(button_2)
 
-    await m.answer("", reply_markup=keyboard)
+    await m.answer("выбери часть недели", reply_markup=keyboard)
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
