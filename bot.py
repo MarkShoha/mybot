@@ -72,13 +72,13 @@ def sfilm(m, res=False):
 # @bot.message_handler(content_types=["text"])
 # def handle_text(message):
 
-@bot.message_handler(commands=["sutki"])
-def sutki(m, res=False):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    button_1 = types.KeyboardButton(text="будни")
-    keyboard.add(button_1)
-    button_2 = "выходные"
-    keyboard.add(button_2)
+#@bot.message_handler(commands=["sutki"])
+#def sutki(m, res=False):
+#    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#    button_1 = types.KeyboardButton(text="будни")
+#    keyboard.add(button_1)
+#    button_2 = "выходные"
+#    keyboard.add(button_2)
 
     await m.answer("выбери часть недели", reply_markup=keyboard)
 @bot.callback_query_handler(func=lambda call: True)
