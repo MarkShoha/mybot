@@ -62,15 +62,13 @@ def sanekdot(m, res=False):
                'Если ребенок не хочет есть мясо, чем его заменить? — Собакой. Собака всегда хочет есть мясо.',
                'Есть французская пословица: всю первую половину жизни мы ждём вторую, а всю вторую — вспоминаем первую...',
                'Победитель тот, кто встает на один раз больше, чем падает.']
-    fd=['CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA',
-        'CAACAgIAAxkBAAIEPGKNDEnIkWey_9gGD6EF4JEemZqQAAIdAAPANk8TXtim3EE93kgkBA',
-        'CAACAgIAAxkBAAIEPWKNDE9Ux7An8R5dkZOySRfbtL0xAAIBAAPANk8TGC5zMKs_LVEkBA',
-        'CAACAgIAAxkBAAIEPmKNDFOvqpAfSgHP2atUz8gxCYO8AAIFAAPANk8T-WpfmoJrTXUkBA']
+
+
     msg = random.choice(first2)
-    stk=random.choice(fd)
+
     # Отправляем текст в Телеграм
     print(msg)
-    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + stk)
+    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA' )
 @bot.message_handler(commands=["film"])
 def sfilm(m, res=False):
     first12 = ['бегущий в лабиринте\nПодростки пытаются выбраться из изолированного «приюта». Начало молодежной саги по бестселлеру Джеймса Дэшнера.',
@@ -100,15 +98,12 @@ def callback_worker(call):
     first12 = ['бегущий в лабиринте', 'люси', 'человек паук нет пути домой','конек горбунок']
     if call.data == "zodiac2":
         # Формируем гороскоп
-        fd = ['CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA',
-              'CAACAgIAAxkBAAIEPGKNDEnIkWey_9gGD6EF4JEemZqQAAIdAAPANk8TXtim3EE93kgkBA',
-              'CAACAgIAAxkBAAIEPWKNDE9Ux7An8R5dkZOySRfbtL0xAAIBAAPANk8TGC5zMKs_LVEkBA',
-              'CAACAgIAAxkBAAIEPmKNDFOvqpAfSgHP2atUz8gxCYO8AAIFAAPANk8T-WpfmoJrTXUkBA']
+
         msg = random.choice(first2)
-        stk = random.choice(fd)
+
         # Отправляем текст в Телеграм
         print(msg)
-        bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + stk)
+        bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA')
     if call.data == "zodiac12":
         # Формируем гороскоп
         msg = random.choice(first12)
