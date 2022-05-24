@@ -86,10 +86,7 @@ def sutki(m, res=False):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-    if call.message.text == 'будни':
-        bot.send_message(call.message.chat.id, 'БЫВАЕТ')
-    elif call.message.text == 'выходные':
-        bot.send_message(call.message.chat.id, 'ХАРОШ')
+
     first = ['Сколько месяцев в году имеют 28 дней?',  'Что в огне не горит и в воде не тонет?',
              'Кого австралийцы называют морской осой?']
 
@@ -124,6 +121,10 @@ def callback_worker(call):
 
 @bot.message_handler(content_types=['text'])
 def text(message):
+    if message.text == 'будни':
+        bot.send_message(message.chat.id, 'БЫВАЕТ')
+    elif message.text == 'выходные':
+        bot.send_message(message.chat.id, 'ХАРОШ')
     if r >= 1:
         q = q_f[g]
         print(id,q)
