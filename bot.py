@@ -62,10 +62,15 @@ def sanekdot(m, res=False):
                'Если ребенок не хочет есть мясо, чем его заменить? — Собакой. Собака всегда хочет есть мясо.',
                'Есть французская пословица: всю первую половину жизни мы ждём вторую, а всю вторую — вспоминаем первую...',
                'Победитель тот, кто встает на один раз больше, чем падает.']
+    fd=['CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA',
+        'CAACAgIAAxkBAAIEPGKNDEnIkWey_9gGD6EF4JEemZqQAAIdAAPANk8TXtim3EE93kgkBA',
+        'CAACAgIAAxkBAAIEPWKNDE9Ux7An8R5dkZOySRfbtL0xAAIBAAPANk8TGC5zMKs_LVEkBA',
+        'CAACAgIAAxkBAAIEPmKNDFOvqpAfSgHP2atUz8gxCYO8AAIFAAPANk8T-WpfmoJrTXUkBA']
     msg = random.choice(first2)
+    stk=random.choice(fd)
     # Отправляем текст в Телеграм
     print(msg)
-    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg)
+    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + stk)
 @bot.message_handler(commands=["film"])
 def sfilm(m, res=False):
     first12 = ['бегущий в лабиринте\nПодростки пытаются выбраться из изолированного «приюта». Начало молодежной саги по бестселлеру Джеймса Дэшнера.',
@@ -74,14 +79,14 @@ def sfilm(m, res=False):
                'конек горбунок\nПростой парень Иван и волшебный конь служат царю-самодуру. Фильм-сказка с уникальной компьютерной графикой.']
     msg = random.choice(first12)
     # Отправляем текст в Телеграм
-    bot.send_message(m.chat.id, 'вы выбрали фильмы: \nФильм: ' + msg)
+    bot.send_message(m.chat.id, 'Вы выбрали фильмы: \nФильм: ' + msg)
 # Получение сообщений от юзера
 # @bot.message_handler(content_types=["text"])
 # def handle_text(message):
 @bot.message_handler(commands=["opros"])
 def sutki(m, res=False):
 
-    bot.send_message(m.chat.id,'напиши часть недели будни / выходные')
+    bot.send_message(m.chat.id,'Напиши часть недели будни / выходные')
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -95,15 +100,20 @@ def callback_worker(call):
     first12 = ['бегущий в лабиринте', 'люси', 'человек паук нет пути домой','конек горбунок']
     if call.data == "zodiac2":
         # Формируем гороскоп
+        fd = ['CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA',
+              'CAACAgIAAxkBAAIEPGKNDEnIkWey_9gGD6EF4JEemZqQAAIdAAPANk8TXtim3EE93kgkBA',
+              'CAACAgIAAxkBAAIEPWKNDE9Ux7An8R5dkZOySRfbtL0xAAIBAAPANk8TGC5zMKs_LVEkBA',
+              'CAACAgIAAxkBAAIEPmKNDFOvqpAfSgHP2atUz8gxCYO8AAIFAAPANk8T-WpfmoJrTXUkBA']
         msg = random.choice(first2)
+        stk = random.choice(fd)
         # Отправляем текст в Телеграм
         print(msg)
-        bot.send_message(call.message.chat.id,'Вы выбрали анекдот.\nАндекдот: '+ msg)
+        bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + stk)
     if call.data == "zodiac12":
         # Формируем гороскоп
         msg = random.choice(first12)
         # Отправляем текст в Телеграм
-        bot.send_message(call.message.chat.id,'вы выбрали фильмы: \nФильм: ' +msg)
+        bot.send_message(call.message.chat.id,'Вы выбрали фильмы: \nФильм: ' +msg)
     if call.data == "zodiac":
         # Формируем гороскоп
         r+=1
@@ -122,9 +132,11 @@ def callback_worker(call):
 @bot.message_handler(content_types=['text'])
 def text(message):
     if message.text == 'будни':
-        bot.send_message(message.chat.id, 'БЫВАЕТ')
+        bot.send_message(message.chat.id, 'БЫВАЕТ:(')
     elif message.text == 'выходные':
-        bot.send_message(message.chat.id, 'ХАРОШ')
+        bot.send_message(message.chat.id, 'ХАРОШ:)')
+    else:
+        bot.send_message(message.chat.id, 'ПЛОХ!Надо вводить то что я сказал!')
     if r >= 1:
         q = q_f[g]
         print(id,q)
