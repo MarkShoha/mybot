@@ -68,7 +68,8 @@ def sanekdot(m, res=False):
 
     # Отправляем текст в Телеграм
     print(msg)
-    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA' )
+    bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg )
+    bot.send_message(m.chat.id, 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA')
 @bot.message_handler(commands=["film"])
 def sfilm(m, res=False):
     first12 = ['бегущий в лабиринте\nПодростки пытаются выбраться из изолированного «приюта». Начало молодежной саги по бестселлеру Джеймса Дэшнера.',
@@ -103,7 +104,8 @@ def callback_worker(call):
 
         # Отправляем текст в Телеграм
         print(msg)
-        bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg + 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA')
+        bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg )
+        bot.send_message(call.message.chat.id,'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA'  )
     if call.data == "zodiac12":
         # Формируем гороскоп
         msg = random.choice(first12)
