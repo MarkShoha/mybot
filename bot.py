@@ -86,10 +86,10 @@ def sutki(m, res=False):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-    if m.text == 'будни':
-        bot.send_message(m.chat.id, 'БЫВАЕТ')
-    elif m.text == 'выходные':
-        bot.send_message(m.chat.id, 'ХАРОШ')
+    if call.message.text == 'будни':
+        bot.send_message(call.message.chat.id, 'БЫВАЕТ')
+    elif call.message.text == 'выходные':
+        bot.send_message(call.message.chat.id, 'ХАРОШ')
     first = ['Сколько месяцев в году имеют 28 дней?',  'Что в огне не горит и в воде не тонет?',
              'Кого австралийцы называют морской осой?']
 
