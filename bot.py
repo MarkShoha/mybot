@@ -27,6 +27,7 @@ def start(m ):
     bot.send_message(m.chat.id,waqs)
 @bot.message_handler(commands=["waterings"])
 def start(m):
+    global waqs1
     iu=['всё ок','проблема!!']
     waqs1=choice(iu)
     bot.send_message(m.chat.id,waqs1)
@@ -40,6 +41,10 @@ def start(m):
     bot.send_message(m.chat.id,  war12)
 @bot.message_handler(content_types=['text'])
 def text(m):
+    if waqs1 == 'проблема':
+        bot.send_message(m.chat.id,'http://172.20.10.6:3000 ')
+    else:
+        bot.send_message(m.chat.id, 'http://172.20.10.6:3000 ')
     if m.text == 'запустить полив':
         bot.send_message(m.chat.id,'полив запущен')
     elif m.text == 'остановить полив':
