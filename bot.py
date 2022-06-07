@@ -49,12 +49,16 @@ def receive_message(device, userdata, message):
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
         # Добавляем две кнопки
-        global id,q_f
+        global id,q_f,dsfgy,rw
         q_f = ['все', 'лёд', 'медуза']
         id = m.chat.id
-        bot.send_sticker(m.chat.id,
-                         'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(m.chat.id, 'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.\nНапиши /opros чтобы выбрать часть недели')
+        dsfgy=0
+        r1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        rw=random.choice(r1)
+        bot.send_message(m.chat.id,'Пройдите регистрацию,введите логин который выдаст вам бот и запомните его\n ваш логин '+rw)
+
+
+
 
 @bot.message_handler(commands=["anekdot"])
 def sanekdot(m, res=False):
@@ -82,16 +86,14 @@ def sfilm(m, res=False):
 # Получение сообщений от юзера
 # @bot.message_handler(content_types=["text"])
 # def handle_text(message):
-@bot.message_handler(commands=["opros"])
-def sutki(m, res=False):
 
-    bot.send_message(m.chat.id,'Напиши часть недели будни / выходные')
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
 
-    first = ['Сколько месяцев в году имеют 28 дней?',  'Что в огне не горит и в воде не тонет?',
+    first = ['Сколько месяцев в году имеют 28 дней?',
+             'Что в огне не горит и в воде не тонет?',
              'Кого австралийцы называют морской осой?']
 
     first1 = [  'отжмись 20 раз', 'присядь 40 раз', 'пробеги километр','планка 40 секунд']
@@ -131,12 +133,17 @@ def callback_worker(call):
 
 @bot.message_handler(content_types=['text'])
 def text(message):
-    if message.text == 'будни':
-        bot.send_message(message.chat.id, 'БЫВАЕТ:(')
-    elif message.text == 'выходные':
-        bot.send_message(message.chat.id, 'ХАРОШ:)')
+    if message.text == rw:
+        bot.send_message(message.chat.id, 'ок теперь введи свой пароль СОСТОЯЩИЙ ИЗ ЦИФР!')
+
     else:
-        bot.send_message(message.chat.id, 'ПЛОХ!Надо вводить то что я сказал!')
+        o=message.text
+        dsfgy=1
+        bot.send_message(message.chat.id, 'ок')
+        bot.send_sticker(message.chat.id,
+                         'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
+        bot.send_message(message.chat.id,
+                         'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
     if r >= 1:
         q = q_f[g]
         print(id,q)
@@ -146,15 +153,15 @@ def text(message):
             bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
         print(message.chat.id, message.text)
 
-    device.publish("client_sasha/social_bot", message.text)
+    # device.publish("client_sasha/social_bot", message.text)
 
-device = Client()
-device.username_pw_set("client_sasha", "dsr4mn")
-device.connect("mqtt.pi40.ru", 1883)
-device.subscribe("client_sasha/social_bot")
-device.on_message = receive_message
-device.loop_start()
-mqtt_message = ''
-id = ''
+# device = Client()
+# device.username_pw_set("client_sasha", "dsr4mn")
+# device.connect("mqtt.pi40.ru", 1883)
+# device.subscribe("client_sasha/social_bot")
+# device.on_message = receive_message
+# device.loop_start()
+# mqtt_message = ''
+# id = ''
 
 bot.polling(none_stop=True)
