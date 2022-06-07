@@ -30,7 +30,7 @@ def start(m):
     global waqs1
     iu=['проблема!!']
     waqs1=choice(iu)
-    bot.send_message(m.chat.id,waqs1+'   http://172.20.10.6:3000')
+    bot.send_message(m.chat.id,waqs1)
 
 
 @bot.message_handler(commands=["cordinats"])
