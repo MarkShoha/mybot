@@ -31,7 +31,7 @@ def start(m):
     iu=['проблема!!']
     waqs1=choice(iu)
     bot.send_message(m.chat.id,waqs1)
-    bot.send_message(m.chat.id, '172.20.10.6:3000 ')
+    bot.send_message(m.chat.id, 'http://localhost:63342/newBot/.idea/templates/index.html?_ijt=dsu775uod52k8gvm1mldt8e0rs&_ij_reload=RELOAD_ON_SAVE ')
 
 
 @bot.message_handler(commands=["cordinats"])
