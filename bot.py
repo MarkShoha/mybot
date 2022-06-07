@@ -13,7 +13,7 @@ def start(m):
     keyboard.add(button_1)
     button_2 = "остановить полив"
     keyboard.add(button_2)
-    bot.send_message(m.chat.id,"Если хотите росмотреть состояние люков напишите /hatches,если состояние поливальниц /waterings\nЕсли хотите узнать координаты напишите /cordinats", reply_markup=keyboard)
+    bot.send_message(m.chat.id,"Если хотите расмотреть состояние люков напишите /hatches,если состояние поливальниц /waterings\nЕсли хотите узнать координаты напишите /cordinats", reply_markup=keyboard)
 
 
 
