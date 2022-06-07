@@ -22,19 +22,17 @@ def start(m):
 
 @bot.message_handler(commands=["hatches"])
 def start(m ):
-    iu=['всё ок','проблема!!']
+    iu=['всё ок']
     waqs=choice(iu)
     bot.send_message(m.chat.id,waqs)
 @bot.message_handler(commands=["waterings"])
 def start(m):
     global waqs1
-    iu=['всё ок','проблема!!']
+    iu=['проблема!!']
     waqs1=choice(iu)
-    bot.send_message(m.chat.id,waqs1)
-    if waqs1 == 'проблема':
-        bot.send_message(m.chat.id,'http://172.20.10.6:3000 ')
-    else:
-        bot.send_message(m.chat.id, 'http://172.20.10.6:3000 ')
+    bot.send_message(m.chat.id,waqs1+'   http://172.20.10.6:3000')
+
+
 @bot.message_handler(commands=["cordinats"])
 def start(m):
 
