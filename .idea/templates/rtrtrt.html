@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ДАБАРА</title>
+<style>
+  /* The CSS we saw earlier is still
+   * being applied. It's tucked into
+   * the "CSS" tab above.
+   */
+.pushable {
+
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+.front {
+
+  display: block;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+
+  transform: translateY(-6px);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+}
+  .pushable:focus:not(:focus-visible) {
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+<link rel="stylesheet" href="css/style.css">
+<a href="index.html"  >
+<button class="pushable" style=" height:30 px; width:450 px; position:fixed; top:39%;  left:60%;
+border-radius: 20px">
+
+  <img src="ref.png" alt=" "class="front"
+>
+
+</button></a>
+
+
+<img src="dabro.png" alt="#АЛЕКСАНДР_ХАНИН_ГЕЙ">
+
+</body>
+</html>
