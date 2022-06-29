@@ -1,19 +1,65 @@
-import random
+
+# while True:
+#     ser()
+# print('eerer')
 
 # Подключаем модуль для Телеграма
-import telebot
+import pyglet
 from paho.mqtt.client import Client
-global r
-r=0
-bot = telebot.TeleBot('5146873101:AAFJ79AWuv2Zf20pfi9eKzN-AgNGEyWHNK0')
+import datetime
+import random
+import telebot
+now = datetime.datetime.now()
+
+global er
+global last_er
+er = ['хор.', "ясно", "утро", "вых.", "спал."]
+print(1)
+last_er = ['хор.', "ясно", "утро", "вых.", "спал."]
+mqtt_message=''
+def ser():
+    last_er = ['хор.', "ясно", "утро", "вых.", "спал."]
+    if er != last_er:
+        last_er = er
+        print('данные изменены')
+bot = telebot.TeleBot('5556225060:AAHUCMGNj-0om9bIl8YudbsdwnavpEC6LJY')
 # Импортируем типы из модуля, чтобы создавать кнопки
 from telebot import types
 global g
+
 g=random.randint(0,2)
+def gg1(device, userdata, message):
+    global mqtt_message1
+    mqtt_message1= message.payload.decode()
+    print(mqtt_message1)
 def receive_message(device, userdata, message):
     global mqtt_message
+
     mqtt_message = message.payload.decode()
+    print(mqtt_message)
+
     # Если юзер прислал 1, выдаем ему случайный факт
+    if mqtt_message == 'kitchen':
+        er = ['хор.', "ясно", "утро", "вых.", "кух."]
+        bot.send_message(id, text='Вы на кухне')
+        if mqtt_message == 'go':
+            song = pyglet.media.load('kuh.mp3')
+            song.play()
+
+    if mqtt_message == 'bedroom':
+
+        er = ['хор.', "ясно", "утро", "вых.", "спал."]
+        bot.send_message(id, text='Вы в спальне')
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('spal.mp3')
+            song.play()
+    if mqtt_message == 'hall':
+        er = ['хор.', "ясно", "утро", "вых.", "кор."]
+        bot.send_message(id, text='Вы в коридоре')
+        if mqtt_message1 =='go':
+            song = pyglet.media.load('kor.mp3')
+            song.play()
+
     if mqtt_message == '1' :
         keyboard = types.InlineKeyboardMarkup()
 
@@ -23,11 +69,13 @@ def receive_message(device, userdata, message):
         keyboard.add(key_oven)
         key_telec = types.InlineKeyboardButton(text='тренировка', callback_data='zodiac1')
         keyboard.add(key_telec)
-        bot.send_sticker(id,
-                         'CAACAgIAAxkBAAIBL2IU4Kn-U_GGxxYyRF6ir1tTJv_AAAIVAAPANk8TzVamO2GeZOcjBA')
-        bot.send_message(id, text='Ты весёлый.\n Выбери своё развлечение', reply_markup=keyboard)
 
-
+        bot.send_message(id, text='Ты весёлый!Твоё настроение на высоте\n Выбери своё развлечение', reply_markup=keyboard)
+        er = ['хор.', "ясно", "утро", "вых.", "спал."]
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('ves.mp3')
+            song.play()
     # Если юзер прислал 2, выдаем умную мысль
     elif mqtt_message == '0':
         keyboard = types.InlineKeyboardMarkup()
@@ -37,28 +85,36 @@ def receive_message(device, userdata, message):
         keyboard.add(key_oven)
         key_telec = types.InlineKeyboardButton(text='фильм', callback_data='zodiac12')
         keyboard.add(key_telec)
-        bot.send_sticker(id,
-                         'CAACAgIAAxkBAAIBMWIU4LGIqTndlBUKkaRKkGZw8y8ZAAIgAAPANk8T9A8ruj5f9M8jBA')
-        bot.send_message(id, text='Ты грустный.\nВыбери своё развлечение', reply_markup=keyboard)
 
+        bot.send_message(id, text='Ты грустный.Очень жалко:(,но я подниму тебе настроение!\nВыбери своё развлечение', reply_markup=keyboard)
+        er = ['плох.', "ясно", "утро", "вых.", "спал."]
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('ploh.mp3')
+            song.play()
     # Если юзер прислал 2, выдаем умную мысль
     # Отсылаем юзеру сообщение в его чат
-
-
 # Указываем токен
 @bot.message_handler(commands=["start"])
-def start(m, res=False):
+def start(m):
+        global id, q_f, dsfgy, rw
         # Добавляем две кнопки
-        global id,q_f,dsfgy,rw
-        q_f = ['все', 'лёд', 'медуза']
         id = m.chat.id
         dsfgy=0
-        r1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        rw=random.choice(r1)
-        bot.send_message(m.chat.id,'Пройдите регистрацию,введите логин который выдаст вам бот и запомните его\n ваш логин '+rw)
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ov212en = types.InlineKeyboardButton(text='настройка', callback_data='u71')
+        # И добавляем кнопку на экран
+        keyboard.add(key_ov212en)
+        key_t11elec = types.InlineKeyboardButton(text='запуск робота', callback_data='u61')
+        keyboard.add(key_t11elec)
+        bot.send_message(m.chat.id,
+                         'я робот-соцпсихолог!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.', reply_markup=keyboard)
+        # if mqtt_message1 == 'go':
+        #     song = pyglet.media.load('priv.mp3')
+        #     song.play()
 
-
-
+    # bot.send_message(id,'По ощущению - +23Ветер\n-4 м/c, СВ \nДавление - 752 мм рт. ст.\nВлажность - 41 %\nГ/м активность - 2 балла\n Вода - +16,4')
 
 @bot.message_handler(commands=["anekdot"])
 def sanekdot(m, res=False):
@@ -73,7 +129,7 @@ def sanekdot(m, res=False):
     # Отправляем текст в Телеграм
     print(msg)
     bot.send_message(m.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg )
-    bot.send_sticker(m.chat.id, 'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA')
+
 @bot.message_handler(commands=["film"])
 def sfilm(m, res=False):
     first12 = ['бегущий в лабиринте\nПодростки пытаются выбраться из изолированного «приюта». Начало молодежной саги по бестселлеру Джеймса Дэшнера.',
@@ -110,7 +166,8 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         print(msg)
         bot.send_message(call.message.chat.id, 'Вы выбрали анекдот.\nАндекдот: ' + msg )
-        bot.send_sticker(call.message.chat.id,'CAACAgIAAxkBAAIEO2KNDEJUy0ujl643zyi3AryNpItEAAITAAPANk8TqrOH9384yqUkBA'  )
+
+
     if call.data == "zodiac12":
         # Формируем гороскоп
         msg = random.choice(first12)
@@ -118,7 +175,7 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id,'Вы выбрали фильмы: \nФильм: ' +msg)
     if call.data == "zodiac":
         # Формируем гороскоп
-        r+=1
+
         msg = first[g]
 
         # Отправляем текст в Телеграм
@@ -129,22 +186,133 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'вы выбрали тренировку. \nТренировка:' +msg)
 # Запускаем бота
+    if call.data == "u0":
+        # Формируем гороскоп
+        ewqr=1
+        er = ['хор.', "дождливо", "утро", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Плохая погода:(')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('ploho.mp3')
+
+            song.play()
+        print(random.randint(0,106))
+    if call.data == "u61":
+        device.publish("aka/start", 'start')
+    if call.data == "u71":
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ov212en = types.InlineKeyboardButton(text='утро', callback_data='u7')
+        # И добавляем кнопку на экран
+        keyboard.add(key_ov212en)
+        key_t11elec = types.InlineKeyboardButton(text='день', callback_data='u6')
+        keyboard.add(key_t11elec)
+        key_tele22c = types.InlineKeyboardButton(text='вечер', callback_data='u5')
+        keyboard.add(key_tele22c)
+        bot.send_message(id, text='Выбери время суток.', reply_markup=keyboard)
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ov212en = types.InlineKeyboardButton(text='выходные', callback_data='u4')
+        # И добавляем кнопку на экран
+        keyboard.add(key_ov212en)
+        key_t11elec = types.InlineKeyboardButton(text='будни', callback_data='u3')
+        keyboard.add(key_t11elec)
+
+        bot.send_message(id, text='Выбери часть недели.', reply_markup=keyboard)
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ov212en1 = types.InlineKeyboardButton(text='пасмурно', callback_data='u2')
+        # И добавляем кнопку на экран
+        keyboard.add(key_ov212en1)
+        key_t11elec1 = types.InlineKeyboardButton(text='ясно', callback_data='u1')
+        keyboard.add(key_t11elec1)
+
+        key_tele22c13 = types.InlineKeyboardButton(text='дождливый', callback_data='u0')
+        keyboard.add(key_tele22c13)
+        bot.send_message(id, text='Выбери погоду.', reply_markup=keyboard)
+    if call.data == "u1":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "ясно", "утро", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Прекрасная погода!')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('prekras.mp3')
+            song.play()
+        print(random.randint(0, 106))
+    if call.data == "u2":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "пас.", "утро", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Грустная погода')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('grus.mp3')
+            song.play()
+        print(random.randint(0, 106))
+    if call.data == "u3":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "ясно", "утро", "буд.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Сегодня рабочий день, успешного рабочего дня!')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('rab.mp3')
+            song.play()
+        print(random.randint(0, 106))
+    if call.data == "u4":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "ясно", "утро", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Сегодня выходной день, хорошего дня!')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('vih.mp3')
+            song.play()
+        print(random.randint(0,106))
+    if call.data == "u5":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "ясно", "вечер", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id,'Доброго вечера,всего самого лучшего!')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('vecher.mp3')
+            song.play()
+        print(random.randint(0, 106))
+    if call.data == "u6":
+        ewqr = 1
+        er = ['хор.', "ясно", "день", "вых.", "спал."]
+
+        bot.send_message(call.message.chat.id, 'Прекрассный день,отличного настроения и дня!')
+        ser()
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('den.mp3')
+            song.play()
+        print(random.randint(0, 106))
+    if call.data == "u7":
+        # Формируем гороскоп
+        ewqr = 1
+        er = ['хор.', "ясно", "утро", "вых.", "спал."]
+        # Отправляем текст в Телеграм
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('utro.mp3')
+            song.play()
+        bot.send_message(call.message.chat.id,'Отличное утро,хорошего дня!')
+        ser()
+        print(random.randint(0, 106))
+
 
 
 @bot.message_handler(content_types=['text'])
 def text(message):
-    if message.text == rw:
-        bot.send_message(message.chat.id, 'ок теперь введи свой пароль СОСТОЯЩИЙ ИЗ ЦИФР!')
-
-    else:
-        o=message.text
-        dsfgy=1
-        bot.send_message(message.chat.id, 'ок')
-        bot.send_sticker(message.chat.id,
-                         'CAACAgIAAxkBAAIBLWIU4I-OAjYuRdF3Z-7h6uOX72FkAAIYAAPANk8T1vonv5xqGPgjBA')
-        bot.send_message(message.chat.id,
-                         'я робот-соцпсихолог,я узнаю настроение ЛЮБОГО ЧЕЛОВЕКА!Я помогу людям с низкой социальностью!\nНапиши /anekdot чтобы узнать смешной анекдот.\nНапиши /film чтобы узнать какой фильм тебе посмотреть.')
-    if r >= 1:
+        q_f = ['все', 'лёд', 'медуза']
         q = q_f[g]
         print(id,q)
         if message.text == q:
@@ -153,15 +321,18 @@ def text(message):
             bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
         print(message.chat.id, message.text)
 
-    # device.publish("client_sasha/social_bot", message.text)
+        device.publish("client_sasha/social_bot", message.text)
+# uk2-gEK-mLV-Qiy
+device = Client('ddddsdsss')
 
-# device = Client()
-# device.username_pw_set("client_sasha", "dsr4mn")
-# device.connect("mqtt.pi40.ru", 1883)
-# device.subscribe("client_sasha/social_bot")
-# device.on_message = receive_message
-# device.loop_start()
-# mqtt_message = ''
-# id = ''
+device.username_pw_set("client_sasha", "dsr4mn")
+device.connect("mqtt.pi40.ru", 1883)
+device.subscribe("client_sasha/social_bot")
+device.subscribe("client_sasha/go")
+device.message_callback_add("client_sasha/go",gg1)
+device.message_callback_add("client_sasha/social_bot",receive_message)
+device.on_message = receive_message
+device.loop_start()
 
-bot.polling(none_stop=True)
+
+bot.polling()
