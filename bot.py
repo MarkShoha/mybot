@@ -26,7 +26,7 @@ bot = telebot.TeleBot('5556225060:AAHUCMGNj-0om9bIl8YudbsdwnavpEC6LJY')
 # Импортируем типы из модуля, чтобы создавать кнопки
 from telebot import types
 global g
-
+mqtt_message1 = ''
 g=random.randint(0,2)
 def gg1(device, userdata, message):
     global mqtt_message1
@@ -34,7 +34,7 @@ def gg1(device, userdata, message):
     print(mqtt_message1)
 def receive_message(device, userdata, message):
     global mqtt_message
-
+    global mqtt_message1
     mqtt_message = message.payload.decode()
     print(mqtt_message)
 
@@ -97,7 +97,7 @@ def receive_message(device, userdata, message):
 # Указываем токен
 @bot.message_handler(commands=["start"])
 def start(m):
-        global id, q_f, dsfgy, rw
+        global id, q_f, dsfgy, rw, mqtt_message1
         # Добавляем две кнопки
         id = m.chat.id
         dsfgy=0
@@ -308,7 +308,7 @@ def callback_worker(call):
         ser()
         print(random.randint(0, 106))
 
-
+# Pt2-6eh-g9Y-8i5
 
 @bot.message_handler(content_types=['text'])
 def text(message):
