@@ -4,6 +4,8 @@
 # print('eerer')
 
 # Подключаем модуль для Телеграма
+import time
+
 import pyglet
 from paho.mqtt.client import Client
 import datetime
@@ -32,6 +34,16 @@ def gg1(device, userdata, message):
     global mqtt_message1
     mqtt_message1= message.payload.decode()
     print(mqtt_message1)
+    if mqtt_message1 == 'go':
+        song = pyglet.media.load('prekras.mp3')
+        song.play()
+        time.sleep(1.5)
+        song1 = pyglet.media.load('den.mp3')
+        song1.play()
+        time.sleep(1.5)
+        song2 = pyglet.media.load('vih.mp3')
+        song2.play()
+        time.sleep(1.5)
 def receive_message(device, userdata, message):
     global mqtt_message
     global mqtt_message1
@@ -44,6 +56,7 @@ def receive_message(device, userdata, message):
         bot.send_message(id, text='Вы на кухне')
         if mqtt_message == 'go':
             song = pyglet.media.load('kuh.mp3')
+
             song.play()
 
     if mqtt_message == 'bedroom':
@@ -91,6 +104,8 @@ def receive_message(device, userdata, message):
         ser()
         if mqtt_message1 == 'go':
             song = pyglet.media.load('ploh.mp3')
+            # songp=pyglet.Player()
+            # songp.pyglet
             song.play()
     # Если юзер прислал 2, выдаем умную мысль
     # Отсылаем юзеру сообщение в его чат
@@ -157,7 +172,7 @@ def callback_worker(call):
                'Если ребенок не хочет есть мясо, чем его заменить? — Собакой. Собака всегда хочет есть мясо.',
                'Есть французская пословица: всю первую половину жизни мы ждём вторую, а всю вторую — вспоминаем первую...',
                'Победитель тот, кто встает на один раз больше, чем падает.']
-    first12 = ['бегущий в лабиринте', 'люси', 'человек паук нет пути домой','конек горбунок']
+    first12 = ['бегущий в лабиринте', 'люси', 'человек паук нет пути домой','конек горбунок','люди в черном']
     if call.data == "zodiac2":
         # Формируем гороскоп
 
@@ -193,14 +208,16 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Плохая погода:(')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('ploho.mp3')
-
-            song.play()
+        # if mqtt_message1 == 'go':
+        #     song = pyglet.media.load('ploho.mp3')
+        #
+        #     song.play()
         print(random.randint(0,106))
+
     if call.data == "u61":
-        device.publish("aka/start", 'start')
+        device.publish("client_sasha/social_bot", 'start')
     if call.data == "u71":
+
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
         key_ov212en = types.InlineKeyboardButton(text='утро', callback_data='u7')
@@ -238,10 +255,10 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Прекрасная погода!')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('prekras.mp3')
-            song.play()
+
+
         print(random.randint(0, 106))
+
     if call.data == "u2":
         # Формируем гороскоп
         ewqr = 1
@@ -249,10 +266,11 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Грустная погода')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('grus.mp3')
-            song.play()
+        # if mqtt_message1 == 'go':
+        #     song = pyglet.media.load('grusna.mp3')
+        #     song.play()
         print(random.randint(0, 106))
+        device.publish("ak/start", 'start')
     if call.data == "u3":
         # Формируем гороскоп
         ewqr = 1
@@ -260,9 +278,9 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Сегодня рабочий день, успешного рабочего дня!')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('rab.mp3')
-            song.play()
+        # if mqtt_message1 == 'go':
+        #     song = pyglet.media.load('rab.mp3')
+        #     song.play()
         print(random.randint(0, 106))
     if call.data == "u4":
         # Формируем гороскоп
@@ -271,9 +289,7 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Сегодня выходной день, хорошего дня!')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('vih.mp3')
-            song.play()
+
         print(random.randint(0,106))
     if call.data == "u5":
         # Формируем гороскоп
@@ -282,9 +298,7 @@ def callback_worker(call):
         # Отправляем текст в Телеграм
         bot.send_message(call.message.chat.id,'Доброго вечера,всего самого лучшего!')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('vecher.mp3')
-            song.play()
+
         print(random.randint(0, 106))
     if call.data == "u6":
         ewqr = 1
@@ -292,21 +306,28 @@ def callback_worker(call):
 
         bot.send_message(call.message.chat.id, 'Прекрассный день,отличного настроения и дня!')
         ser()
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('den.mp3')
-            song.play()
+
+
         print(random.randint(0, 106))
     if call.data == "u7":
         # Формируем гороскоп
         ewqr = 1
         er = ['хор.', "ясно", "утро", "вых.", "спал."]
         # Отправляем текст в Телеграм
-        if mqtt_message1 == 'go':
-            song = pyglet.media.load('utro.mp3')
-            song.play()
+
         bot.send_message(call.message.chat.id,'Отличное утро,хорошего дня!')
         ser()
         print(random.randint(0, 106))
+        if mqtt_message1 == 'go':
+            song = pyglet.media.load('prekras.mp3')
+            song.play()
+            time.sleep(2.5)
+            song1 = pyglet.media.load('den.mp3')
+            song1.play()
+            time.sleep(2.5)
+            song2 = pyglet.media.load('vih.mp3')
+            song2.play()
+
 
 # Pt2-6eh-g9Y-8i5
 
@@ -318,7 +339,7 @@ def text(message):
         if message.text == q:
             bot.send_message(id, 'правильно')
         else:
-            bot.send_message(id, 'неправильно ХИ-ХИ-ХИ-ХА')
+            bot.send_message(id, 'неправильно')
         print(message.chat.id, message.text)
 
         device.publish("client_sasha/social_bot", message.text)
@@ -333,6 +354,4 @@ device.message_callback_add("client_sasha/go",gg1)
 device.message_callback_add("client_sasha/social_bot",receive_message)
 device.on_message = receive_message
 device.loop_start()
-
-
 bot.polling()
