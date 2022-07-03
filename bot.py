@@ -5,7 +5,7 @@
 
 # Подключаем модуль для Телеграма
 import time
-
+print('yees1')
 import pyglet
 from paho.mqtt.client import Client
 import datetime
@@ -15,12 +15,12 @@ now = datetime.datetime.now()
 
 global er
 global last_er
-er = ['хор.', "ясно", "утро", "вых.", "спал."]
+er = ['хор.', "ясно", "утро", "вых.", "кух."]
 print(1)
-last_er = ['хор.', "ясно", "утро", "вых.", "спал."]
+last_er = ['хор.', "ясно", "утро", "вых.", "кух."]
 mqtt_message=''
 def ser():
-    last_er = ['хор.', "ясно", "утро", "вых.", "спал."]
+    last_er = ['хор.', "ясно", "утро", "вых.", "кух."]
     if er != last_er:
         last_er = er
         print('данные изменены')
