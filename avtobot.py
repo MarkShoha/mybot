@@ -244,12 +244,11 @@ def callback_worker(call):
         key_oven1 = types.InlineKeyboardButton(text='Самара',url='https://www.avito.ru/i216871666/samara?page_from=from_shops_list')
         # И добавляем кнопку на экран
         keyboard.add(key_oven1)
-        key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом',callback_data='specialist')
+        key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом',url='https://t.me/sashakhasanova')
         keyboard.add(key_oven12)
         bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
 
-    if call.data == 'specialist':
-        bot.send_message(call.message.chat.id,'Напишите сюда:\n@sashakhasanova')
+
 device = Client('d656894767ss')
 
 device.username_pw_set("amk_avtoset1", "amk_avtoset1")
