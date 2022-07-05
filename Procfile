@@ -1,1 +1,1 @@
-worker: python3 avtobot.py
+worker: python3 bot.py
