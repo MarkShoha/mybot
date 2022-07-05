@@ -1,5 +1,7 @@
-import string
 import time
+
+from aiogram.types import ParseMode
+
 global prov
 prov =0
 import telebot
@@ -233,6 +235,21 @@ def callback_worker(call):
                          text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
                          reply_markup=keyboard)
         device.publish("amk_avtoset1/uslugi",'Детейлинг')
+    if call.data == 'v_nal':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_oven = types.InlineKeyboardButton(text='Екатеринбург',url='https://auto.ru/diler/cars/used/autoset_rf_ekaterinburg/?from=dealer-listing-list&geo_radius=200 ')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven)
+        key_oven1 = types.InlineKeyboardButton(text='Самара',url='https://www.avito.ru/i216871666/samara?page_from=from_shops_list')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven1)
+        key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом',callback_data='specialist')
+        keyboard.add(key_oven12)
+        bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
+
+    if call.data == 'specialist':
+        bot.send_message(call.message.chat.id,'Напишите сюда:\n@sashakhasanova')
 device = Client('d656894767ss')
 
 device.username_pw_set("amk_avtoset1", "amk_avtoset1")
@@ -240,4 +257,4 @@ device.connect("mqtt.pi40.ru", 1883)
 
 device.on_message = receive_message
 device.loop_start()
-bot.polling()
+bot.polling(none_stop=True)
