@@ -36,6 +36,7 @@ def oshibka(message):
 @bot.message_handler(content_types=['contact'])
 def contact(message):
     global prov
+    global text
     prov = 1
     keyboard = types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
@@ -70,6 +71,7 @@ def callback_worker(call):
     global prov
     prov = 1
     global text
+    text = message.contact.phone_number
     if call.data == "zap_na_serv":
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
