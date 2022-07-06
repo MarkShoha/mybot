@@ -17,7 +17,7 @@ def receive_message(device, userdata, message):
 
 @bot.message_handler(commands=["start"])
 def start(m):
-        global id
+        global id,text
         id = m.chat.id
         bot.send_message(m.chat.id,'Я — Бот АМК Автосеть рф.В считанные мгновения могу\n– познакомить с автомобилями в наличии;\n– рассказать , как легко и выгодно продать ваш автомобиль\n- подать предварительную заявку на кредит\n- записать на сервис\n- уведомить об актуальных акциях')
         # Со мной легко! Выберите из предложенных ниже вариантов, с чем я могу вам помочь.request_contact=True
@@ -26,7 +26,7 @@ def start(m):
         # И добавляем кнопку на экран
         keyboard.add(key_oven1)
         bot.send_message(m.chat.id, 'Авторизуйтесь!',reply_markup=keyboard)
-
+        text = message.contact.phone_number
 
 @bot.message_handler(content_types=['text'])
 def oshibka(message):
@@ -370,6 +370,7 @@ def callback_worker(call):
         keyboard.add(key_oven12)
         bot.send_message(call.message.chat.id,'........................',reply_markup=keyboard)
     if call.data =='avto_podbor':
+        text1 = message.contact.phone_number
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
         key_ove1n = types.InlineKeyboardButton(text='Да',
@@ -389,6 +390,7 @@ def callback_worker(call):
         keyboard.add(key_oven111111111111)
         bot.send_message(call.message.chat.id, '........................', reply_markup=keyboard)
     if call.data =='prod_avto':
+
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
         key_ove1n = types.InlineKeyboardButton(text='Да',
