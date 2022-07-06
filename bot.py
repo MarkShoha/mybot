@@ -1,6 +1,3 @@
-import time
-
-from aiogram.types import ParseMode
 name = ''
 surname = ''
 age = 0
