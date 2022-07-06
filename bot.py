@@ -3,7 +3,7 @@ surname = ''
 age = 0
 
 
-text=''
+text = ''
 prov = 0
 import telebot
 from paho.mqtt.client import Client
@@ -69,6 +69,7 @@ def contact(message):
 def callback_worker(call):
     global prov
     prov = 1
+    global text
     if call.data == "zap_na_serv":
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака

@@ -1,4 +1,3 @@
-from aiogram.types import ParseMode
 from paho.mqtt.client import Client
 import telebot
 

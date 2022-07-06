@@ -1,0 +1,157 @@
+Index: servo/servo3.py
+===================================================================
+diff --git a/servo/servo3.py b/servo/servo3.py
+deleted file mode 100644
+--- a/servo/servo3.py	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
++++ /dev/null	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
+@@ -1,21 +0,0 @@
+-import cv2
+-from time import sleep
+-import RPi.GPIO as GPIO
+-GPIO.setmode(GPIO.BCM)
+-GPIO.setwarnings(False)
+-tilt = 18
+-GPIO.setup(tilt, GPIO.OUT)
+-
+-def setServoAngle(servo, angle):
+-	assert angle >=30 and angle <= 150
+-	pwm = GPIO.PWM(servo, 50)
+-	pwm.start(8)
+-	dutyCycle = angle / 18. + 3.
+-	pwm.ChangeDutyCycle(dutyCycle)
+-	sleep(0.3)
+-	pwm.stop()
+-
+-if __name__ == '__main__':
+-	i = int(input("ввод: "))
+-	setServoAngle(tilt, i)
+-	GPIO.cleanup()
+\ No newline at end of file
+Index: servo/servo1.py
+===================================================================
+diff --git a/servo/servo1.py b/servo/servo1.py
+deleted file mode 100644
+--- a/servo/servo1.py	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
++++ /dev/null	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
+@@ -1,10 +0,0 @@
+-from rpi_hardware_pwm import HardwarePWM
+-import time
+-pwm = HardwarePWM(pwm_channel=0, hz=60)
+-pwm.start(5.5)
+-while True:
+-    i = float(input("введите число: "))
+-    pwm.change_duty_cycle(i)
+-    time.sleep(2)
+-    pwm.stop()
+-
+Index: servo/program.py
+===================================================================
+diff --git a/servo/program.py b/servo/program.py
+deleted file mode 100644
+--- a/servo/program.py	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
++++ /dev/null	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
+@@ -1,74 +0,0 @@
+-import cv2
+-from time import sleep
+-import RPi.GPIO as GPIO
+-GPIO.setmode(GPIO.BCM)
+-GPIO.setwarnings(False)
+-tilt = 18
+-GPIO.setup(tilt, GPIO.OUT)
+-angle=90
+-
+-def setServoAngle(servo, angle):
+-	pwm = GPIO.PWM(servo, 50)
+-	pwm.start(8)
+-	dutyCycle = angle / 18. + 3.
+-	pwm.ChangeDutyCycle(dutyCycle)
+-	sleep(0.3)
+-	pwm.stop()
+-
+-
+-
+-setServoAngle(tilt, 90)
+-
+-
+-X_center = 90
+-X_left = 70
+-X_right = 110
+-pos = 0
+-old_pos = 0
+-
+-# Большой серво 3 - 10
+-# Малый серво   6 - 4
+-# OpenCV
+-cap = cv2.VideoCapture(2)
+-face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+-
+-while True:
+-    setServoAngle(tilt, angle)
+-    isRead, image = cap.read()
+-    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+-    faces = face_cascade.detectMultiScale(image_gray, minNeighbors=15)
+-    for face in faces:
+-        x, y, w, h = face
+-        c_x = x + (w / 2)
+-        c_y = y + (h / 2)
+-        cv2.circle(image, (int(c_x), int(c_y)), 3, (0, 200, 0), 2)
+-
+-        if c_x > 420:
+-            pos = 'left'
+-        elif c_x < 220:
+-            pos = 'right'
+-        elif c_x < 420 and c_x > 220:
+-            pos = 'center'
+-
+-        if old_pos != pos:
+-            if pos == 'center':
+-                print("X_center", X_center)
+-                # setServoAngle(tilt, X_center)
+-            if pos == 'right':
+-                print("X_center", X_right)
+-                if angle >70:
+-                    angle = angle - 20
+-                # setServoAngle(tilt, X_right)
+-            if pos == 'left':
+-                print("X_center", X_left)
+-                angle=angle+20
+-                # setServoAngle(tilt, X_left)
+-            old_pos = pos
+-        # print(X_turn)
+-    cv2.imshow("image", image)
+-    if cv2.waitKey(20) & 0xFF == ord(' '):
+-        break
+-
+-GPIO.cleanup()
+-cap.release()
+-cv2.destroyAllWindows()
+Index: servo/servo.py
+===================================================================
+diff --git a/servo/servo.py b/servo/servo.py
+deleted file mode 100644
+--- a/servo/servo.py	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
++++ /dev/null	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
+@@ -1,12 +0,0 @@
+-from rpi_hardware_pwm import HardwarePWM
+-import time
+-pwm = HardwarePWM(pwm_channel=0, hz=50)
+-pwm.start(100)
+-for i in range(3):
+-    pwm.change_duty_cycle(3)
+-    time.sleep(1)
+-    pwm.change_duty_cycle(6)
+-    time.sleep(1)
+-    pwm.change_duty_cycle(12)
+-    time.sleep(1)
+-pwm.stop()
+Index: servo/servo2.py
+===================================================================
+diff --git a/servo/servo2.py b/servo/servo2.py
+deleted file mode 100644
+--- a/servo/servo2.py	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
++++ /dev/null	(revision fb73486dc0ca2649737de171dd66130c637e9d97)
+@@ -1,4 +0,0 @@
+-q=1110
+-print(q%100)
+-w=q%10000
+-print(w//100)
