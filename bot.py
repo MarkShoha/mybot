@@ -1,9 +1,10 @@
 name = ''
 surname = ''
 age = 0
-global prov
-prov =0
+
+
 text=''
+prov = 0
 import telebot
 from paho.mqtt.client import Client
 bot = telebot.TeleBot('5423912192:AAGJoP0B7lor-9cHkTx1SdXdVYyFtMfYjVE')
