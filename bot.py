@@ -2,9 +2,8 @@ name = ''
 surname = ''
 age = 0
 
-
-text = ''
-prov = 0
+prov =0
+text=''
 import telebot
 from paho.mqtt.client import Client
 bot = telebot.TeleBot('5423912192:AAGJoP0B7lor-9cHkTx1SdXdVYyFtMfYjVE')
@@ -36,7 +35,6 @@ def oshibka(message):
 @bot.message_handler(content_types=['contact'])
 def contact(message):
     global prov
-    global text
     prov = 1
     keyboard = types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
@@ -70,8 +68,6 @@ def contact(message):
 def callback_worker(call):
     global prov
     prov = 1
-    global text
-    text = message.contact.phone_number
     if call.data == "zap_na_serv":
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
@@ -298,7 +294,7 @@ def callback_worker(call):
                 bot.send_message(call.message.chat.id,'Данные введены некоректно',reply_markup=keyboard)
 
     if call.data == "yes":
-        global surname,name,age,age1,age11 # call.data это callback_data, которую мы указали при объявлении кнопки
+        global surname,name,age # call.data это callback_data, которую мы указали при объявлении кнопки
         # код сохранения данных, или их обработки
         keyboard = types.InlineKeyboardMarkup()
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
@@ -306,7 +302,7 @@ def callback_worker(call):
         keyboard.add(key_oven111111111111)
 
         bot.send_message(call.message.chat.id, 'Благодарим! \nМы создали предварительную кредитную заявку. \nПосле получения ответа от банков, наш кредитный специалист свяжется с вами. ', reply_markup=keyboard)
-        device.publish('amk_avtoset1/kredit','Дата рождения   '+ str(age) + '  ФИ  '+name+'  ' + surname)
+        device.publish('amk_avtoset1/kredit','Дата рождения   ' + str(age) + '  ФИ  '+name+'  ' + surname)
     elif call.data == "no":
         keyboard = types.InlineKeyboardMarkup()
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
