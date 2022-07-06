@@ -238,6 +238,15 @@ def callback_worker(call):
                          text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
                          reply_markup=keyboard)
         device.publish("amk_avtoset1/uslugi",'Детейлинг')
+    if call.data == "z_k":
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+        bot.send_message(call.message.chat.id,
+                         text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
+                         reply_markup=keyboard)
+        device.publish("amk_avtoset1/uslugi",'Заправка кондиционера')
     if call.data == 'v_nal':
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
@@ -368,7 +377,7 @@ def callback_worker(call):
         keyboard.add(key_ove1n)
         key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом', url='https://t.me/sashakhasanova')
         keyboard.add(key_oven12)
-        bot.send_message(call.message.chat.id,'........................',reply_markup=keyboard)
+        bot.send_message(call.message.chat.id,'Выберите',reply_markup=keyboard)
     if call.data =='avto_podbor':
 
         keyboard = types.InlineKeyboardMarkup()
@@ -388,7 +397,7 @@ def callback_worker(call):
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
         # И добавляем кнопку на экран
         keyboard.add(key_oven111111111111)
-        bot.send_message(call.message.chat.id, '........................', reply_markup=keyboard)
+        bot.send_message(call.message.chat.id, 'Выберите ', reply_markup=keyboard)
     if call.data =='prod_avto':
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака

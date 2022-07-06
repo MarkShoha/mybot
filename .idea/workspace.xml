@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2cbb01e-f16e-435d-bc7b-57e389079a78" name="Changes" comment="41" />
+    <list default="true" id="d2cbb01e-f16e-435d-bc7b-57e389079a78" name="Changes" comment="41">
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+    </list>
     <list id="576358b3-8d31-4e41-89e2-99dde1e988f6" name="New changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
