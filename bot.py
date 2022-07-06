@@ -382,7 +382,7 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id,'Хотите, чтобы наш специалист связался с вами\nИ рассказал об условиях?',reply_markup=keyboard)
     if call.data == 'ya':
         bot.send_message(call.message.chat.id,'Благодарим за обращение!\nОжидайте звонка от специалиста')
-        device.publish('amk_avtoset1/pozvon','Позвонить-'+text)
+        device.publish('amk_avtoset1/pozvon','Позвонить')
     if call.data == 'noo':
         keyboard = types.InlineKeyboardMarkup()
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
