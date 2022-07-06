@@ -34,7 +34,7 @@ def oshibka(message):
         bot.send_message(message.chat.id, 'Неверно, нажмите на кнопку.')
 @bot.message_handler(content_types=['contact'])
 def contact(message):
-    global prov,text
+    global prov
     prov = 1
     keyboard = types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
