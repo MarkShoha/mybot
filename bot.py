@@ -66,6 +66,8 @@ def contact(message):
     device.publish("amk_avtoset1/phones", text)
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
+    global prov
+    prov = 1
     if call.data == "zap_na_serv":
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
@@ -249,30 +251,14 @@ def callback_worker(call):
         keyboard.add(key_oven12)
         bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
     if call.data == 'pprpk':
-        def get_age11(message):
-            global age11
-            # проверяем что возраст изменился
 
-            age11 = int(message.text)
-            bot.send_message(call.message.chat.id,'В каком году вы родились?\nПример:2010')
-            bot.register_next_step_handler(message, get_age)
-
-
-        def get_age1(message):
-            global age1
-            # проверяем что возраст изменился
-
-            age1 = int(message.text)
-            bot.send_message(call.message.chat.id,'В каком месяце вы родились?\nПример:10')
-            bot.register_next_step_handler(message, get_age11)
-            # проверяем, что возраст введен корректно
 
 
         def get_surname(message):
             global surname
             surname = message.text
-            bot.send_message(call.message.chat.id,'В какой день вы родились?\nПример:13')
-            bot.register_next_step_handler(message, get_age1)
+            bot.send_message(call.message.chat.id,'В каком году вы родились?\nПример:13.10.10')
+            bot.register_next_step_handler(message, get_age)
         def get_name(message):  # получаем фамилию
             global name
             name = message.text
@@ -286,18 +272,18 @@ def callback_worker(call):
             global age
             # проверяем что возраст изменился
 
-            age = int(message.text)  # проверяем, что возраст введен корректно
+            age = message.text  # проверяем, что возраст введен корректно
 
 
 
-            if len(str(age)) == 4 and age>= 1970 and age11 <=12:
+            if len(age) == 8 :
 
                 keyboard = types.InlineKeyboardMarkup() # наша клавиатура
                 key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')  # кнопка «Да»
                 keyboard.add(key_yes)  # добавляем кнопку в клавиатуру
                 key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
                 keyboard.add(key_no)
-                question = 'Вы родились в ' + str(age1) + '.'+str(age11)+'.' + str(age) + ', Вас зовут ' + name + ' ' + surname + '?'
+                question = 'Вы родились в ' + str(age) + ', Вас зовут ' + name + ' ' + surname + '?'
                 bot.send_message(call.message.chat.id, text=question, reply_markup=keyboard)
             else:
                 keyboard = types.InlineKeyboardMarkup()
@@ -316,7 +302,7 @@ def callback_worker(call):
         keyboard.add(key_oven111111111111)
 
         bot.send_message(call.message.chat.id, 'Благодарим! \nМы создали предварительную кредитную заявку. \nПосле получения ответа от банков, наш кредитный специалист свяжется с вами. ', reply_markup=keyboard)
-        device.publish('amk_avtoset1/kredit','Дата рождения   ' + str(age1) + '.'+str(age11)+'.' + str(age) + '  ФИ  '+name+'  ' + surname)
+        device.publish('amk_avtoset1/kredit','Дата рождения   '+ str(age) + '  ФИ  '+name+'  ' + surname)
     elif call.data == "no":
         keyboard = types.InlineKeyboardMarkup()
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
