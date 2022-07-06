@@ -1,9 +1,12 @@
 import time
 
 from aiogram.types import ParseMode
-
+name = ''
+surname = ''
+age = 0
 global prov
 prov =0
+text=''
 import telebot
 from paho.mqtt.client import Client
 bot = telebot.TeleBot('5423912192:AAGJoP0B7lor-9cHkTx1SdXdVYyFtMfYjVE')
@@ -17,7 +20,8 @@ def receive_message(device, userdata, message):
 
 @bot.message_handler(commands=["start"])
 def start(m):
-
+        global id
+        id = m.chat.id
         bot.send_message(m.chat.id,'Я — Бот АМК Автосеть рф.В считанные мгновения могу\n– познакомить с автомобилями в наличии;\n– рассказать , как легко и выгодно продать ваш автомобиль\n- подать предварительную заявку на кредит\n- записать на сервис\n- уведомить об актуальных акциях')
         # Со мной легко! Выберите из предложенных ниже вариантов, с чем я могу вам помочь.request_contact=True
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
@@ -33,7 +37,7 @@ def oshibka(message):
         bot.send_message(message.chat.id, 'Неверно, нажмите на кнопку.')
 @bot.message_handler(content_types=['contact'])
 def contact(message):
-    global prov
+    global prov,text
     prov = 1
     keyboard = types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
@@ -247,9 +251,171 @@ def callback_worker(call):
         key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом',url='https://t.me/sashakhasanova')
         keyboard.add(key_oven12)
         bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
+    if call.data == 'pprpk':
+        def get_age11(message):
+            global age11
+            # проверяем что возраст изменился
+
+            age11 = int(message.text)
+            bot.send_message(call.message.chat.id,'В каком году вы родились?\nПример:2010')
+            bot.register_next_step_handler(message, get_age)
 
 
-device = Client('d656894767ss')
+        def get_age1(message):
+            global age1
+            # проверяем что возраст изменился
+
+            age1 = int(message.text)
+            bot.send_message(call.message.chat.id,'В каком месяце вы родились?\nПример:10')
+            bot.register_next_step_handler(message, get_age11)
+            # проверяем, что возраст введен корректно
+
+
+        def get_surname(message):
+            global surname
+            surname = message.text
+            bot.send_message(call.message.chat.id,'В какой день вы родились?\nПример:13')
+            bot.register_next_step_handler(message, get_age1)
+        def get_name(message):  # получаем фамилию
+            global name
+            name = message.text
+            bot.send_message(message.chat.id, 'Какая у вас фамилия?')
+            bot.register_next_step_handler(message, get_surname)
+
+        bot.send_message(call.message.chat.id, "Как вас зовут?")
+        bot.register_next_step_handler(call.message, get_name)  # следующий шаг – функция get_name
+
+        def get_age(message):
+            global age
+            # проверяем что возраст изменился
+
+            age = int(message.text)  # проверяем, что возраст введен корректно
+
+
+
+            if len(str(age)) == 4 and age>= 1970 and age11 <=12:
+
+                keyboard = types.InlineKeyboardMarkup() # наша клавиатура
+                key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')  # кнопка «Да»
+                keyboard.add(key_yes)  # добавляем кнопку в клавиатуру
+                key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
+                keyboard.add(key_no)
+                question = 'Вы родились в ' + str(age1) + '.'+str(age11)+'.' + str(age) + ', Вас зовут ' + name + ' ' + surname + '?'
+                bot.send_message(call.message.chat.id, text=question, reply_markup=keyboard)
+            else:
+                keyboard = types.InlineKeyboardMarkup()
+                key_oven23 = types.InlineKeyboardButton(text='Вернуться в основное меню',
+                                                                  callback_data='v_menu')
+                # И добавляем кнопку на экран
+                keyboard.add(key_oven23)
+                bot.send_message(call.message.chat.id,'Данные введены некоректно',reply_markup=keyboard)
+
+    if call.data == "yes":
+        global surname,name,age,age1,age11 # call.data это callback_data, которую мы указали при объявлении кнопки
+        # код сохранения данных, или их обработки
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+
+        bot.send_message(call.message.chat.id, 'Благодарим! \nМы создали предварительную кредитную заявку. \nПосле получения ответа от банков, наш кредитный специалист свяжется с вами. ', reply_markup=keyboard)
+        device.publish('amk_avtoset1/kredit','Дата рождения   ' + str(age1) + '.'+str(age11)+'.' + str(age) + '  ФИ  '+name+'  ' + surname)
+    elif call.data == "no":
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+        bot.send_message(call.message.chat.id,'Предварительная кредитная заявка отменена',reply_markup=keyboard)
+    if call.data == 'oso':
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+        key_oven11111111111 = types.InlineKeyboardButton(text='Оформить осаго',url='https://www.sravni.ru/?utm_source=yandex&utm_medium=cpc&utm_term=сравни%20ру&position_type=premium&utm_campaign=sravni_global_search_rf_brand_38656715&utm_placement=none_%7Bdevice%7D&utm_content=k50id--0100000014927457166_--cid--38656715--gid--3561736601--aid--11822103987--adp--no--pos--premium1--src--search_none--dvc--desktop--Казань_43_11822103987&yadclid=51105162&yadordid=23070178&yclid=10044948372400111615')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven11111111111)
+        bot.send_message(call.message.chat.id, 'Оформить осаго онлайн', reply_markup=keyboard)
+    if call.data == 'sale':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_oven = types.InlineKeyboardButton(text='Екатеринбург',
+                                              callback_data='akcii')
+        keyboard.add(key_oven)
+        key_oven1 = types.InlineKeyboardButton(text='Самара',
+                                               callback_data='akcii')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven1)
+
+        bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
+    if call.data == 'akcii':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ove1n = types.InlineKeyboardButton(text='Особые условия для тех, кто только получил права',
+                                              callback_data='osob')
+        keyboard.add(key_ove1n)
+        key_oven41 = types.InlineKeyboardButton(text='Сделка через салон',
+                                               callback_data='salon')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven41)
+        key_oven412 = types.InlineKeyboardButton(text='Скидка по трейд-ин',callback_data='treid_in')
+        keyboard.add(key_oven412)
+
+        key_oven21 = types.InlineKeyboardButton(text='Сервисные акции',
+                                               callback_data='servis')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven21)
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+
+        bot.send_message(call.message.chat.id, 'Действующие акции', reply_markup=keyboard)
+    if call.data =='osob':
+        bot.send_message(call.message.chat.id,'Дарим страховой полис на автомобиль, если стаж вашего вождения не превышает 3 х месяцев')
+    if call.data =='treid_in':
+        bot.send_message(call.message.chat.id, 'При сдачи авто в трейд ин, получите выгоду на новый автомобиль до 50 000р')
+    if call.data =='salon':
+        bot.send_message(call.message.chat.id,'Нашли автомобиль на досках объявлений (авто ру, авито или дром)?\n Или хотите купить авто у друга?\n Оформите кредит через наш автосалон и получите дополнительную выгоду 20 000р ')
+    if call.data =='servis':
+        bot.send_message(call.message.chat.id,'Скидка при первом посещении 30%\nМасляный сервис за 3750р\nБесплатная диагностика автомобиля\n(предварительные акции) ')
+    if call.data == 'dop_ob':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ove1n = types.InlineKeyboardButton(text='Дополнительное оборудование',
+                                               url='https://www.avito.ru/i198746418/ekaterinburg?page_from=from_shops_list')
+        keyboard.add(key_ove1n)
+        key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом', url='https://t.me/sashakhasanova')
+        keyboard.add(key_oven12)
+        bot.send_message(call.message.chat.id,'........................',reply_markup=keyboard)
+    if call.data =='avto_podbor':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ove1n = types.InlineKeyboardButton(text='Да',
+                                               callback_data='ya')
+        keyboard.add(key_ove1n)
+        key_ove12n = types.InlineKeyboardButton(text='Нет',
+                                               callback_data='noo')
+        keyboard.add(key_ove12n)
+        bot.send_message(call.message.chat.id,'Хотите, чтобы наш специалист связался с вами\nИ рассказал об условиях?',reply_markup=keyboard)
+    if call.data == 'ya':
+        bot.send_message(call.message.chat.id,'Благодарим за обращение!\nОжидайте звонка от специалиста')
+        device.publish('amk_avtoset1/pozvon','Позвонить-'+text)
+    if call.data == 'noo':
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven111111111111)
+        bot.send_message(call.message.chat.id, '........................', reply_markup=keyboard)
+    if call.data =='prod_avto':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_ove1n = types.InlineKeyboardButton(text='Да',
+                                               callback_data='ya')
+        keyboard.add(key_ove1n)
+        key_ove12n = types.InlineKeyboardButton(text='Нет',
+                                               callback_data='noo')
+        keyboard.add(key_ove12n)
+        bot.send_message(call.message.chat.id,'Хотите, чтобы наш специалист связался с вами\nИ рассказал об условиях?',reply_markup=keyboard)
+device = Client()
 
 device.username_pw_set("amk_avtoset1", "amk_avtoset1")
 device.connect("mqtt.pi40.ru", 1883)
