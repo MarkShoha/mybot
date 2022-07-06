@@ -95,9 +95,9 @@ def callback_worker(call):
         key_oven1111111 = types.InlineKeyboardButton(text='Автоэлектрика', callback_data='avto_electro')
         # И добавляем кнопку на экран
         keyboard.add(key_oven1111111)
-        key_oven11111111 = types.InlineKeyboardButton(text='Заправка кондиционера', callback_data='z_k')
+        key_oven121111111 = types.InlineKeyboardButton(text='Заправка кондиционера', callback_data='z_k')
         # И добавляем кнопку на экран
-        keyboard.add(key_oven11111111)
+        keyboard.add(key_oven121111111)
         key_oven111111111 = types.InlineKeyboardButton(text='Шиномонтаж,развал-схождения', callback_data='sh_r-s')
         # И добавляем кнопку на экран
         keyboard.add(key_oven111111111)
