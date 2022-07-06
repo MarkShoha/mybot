@@ -201,6 +201,15 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id,
                          text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
                          reply_markup=keyboard)
+    if call.data == "z_k":
+        keyboard = types.InlineKeyboardMarkup()
+        key_oven0987 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven0987)
+        bot.send_message(call.message.chat.id,
+                         text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
+                         reply_markup=keyboard)
+        device.publish("amk_avtoset1/uslugi", 'Заправка кондиционера')
         device.publish("amk_avtoset1/uslugi",'Диагностика')
     if call.data == "avto_electro":
         keyboard = types.InlineKeyboardMarkup()
@@ -220,6 +229,7 @@ def callback_worker(call):
                          text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
                          reply_markup=keyboard)
         device.publish("amk_avtoset1/uslugi",'Шиномонтаж,развал-схождения')
+
     if call.data == "kuz_remont":
         keyboard = types.InlineKeyboardMarkup()
         key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
@@ -238,15 +248,7 @@ def callback_worker(call):
                          text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
                          reply_markup=keyboard)
         device.publish("amk_avtoset1/uslugi",'Детейлинг')
-    if call.data == "z_k":
-        keyboard = types.InlineKeyboardMarkup()
-        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
-        # И добавляем кнопку на экран
-        keyboard.add(key_oven111111111111)
-        bot.send_message(call.message.chat.id,
-                         text='Благодарим за заявку! Специалист сервиса в скором времени свяжется с вами.\n @sashakhasanova  ',
-                         reply_markup=keyboard)
-        device.publish("amk_avtoset1/uslugi",'Заправка кондиционера')
+
     if call.data == 'v_nal':
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
