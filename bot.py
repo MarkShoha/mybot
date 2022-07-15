@@ -44,7 +44,7 @@ def oshibka(m):
         # И добавляем кнопку на экран
         keyboard.add(key_oven1)
 
-        bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
+        bot.send_message(m.chat.id, 'Выберите город', reply_markup=keyboard)
 @bot.message_handler(content_types=['contact'])
 def contact(message):
 
@@ -53,7 +53,7 @@ def contact(message):
     keyboard = types.ReplyKeyboardMarkup()
     key_oven321 = types.KeyboardButton(text='Выбрать автомобиль 🚗')
     # И добавляем кнопку на экран
-    keyboard1.add(key_oven321)
+    keyboard.add(key_oven321)
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
 
 
