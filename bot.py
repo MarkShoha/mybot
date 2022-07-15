@@ -50,7 +50,7 @@ def contact(message):
 
     global prov
     prov = 1
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
     key_oven321 = types.KeyboardButton(text='Выбрать автомобиль 🚗')
     # И добавляем кнопку на экран
     keyboard.add(key_oven321)
