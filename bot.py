@@ -19,7 +19,7 @@ def receive_message(device, userdata, message):
 def start(m):
         global id
         id = m.chat.id
-        bot.send_message(m.chat.id,'Я — Бот АМК Автосеть рф.В считанные мгновения могу\n– познакомить с автомобилями в наличии;\n– рассказать , как легко и выгодно продать ваш автомобиль\n- подать предварительную заявку на кредит\n- записать на сервис\n- уведомить об актуальных акциях')
+        bot.send_message(m.chat.id,'Я — Бот АМК Автосеть рф.В считанные мгновения могу\n✓ познакомить с автомобилями в наличии;\n✓ рассказать , как легко и выгодно продать ваш автомобиль\n✓ подать предварительную заявку на кредит\n✓ записать на сервис\n✓ уведомить об актуальных акциях')
         # Со мной легко! Выберите из предложенных ниже вариантов, с чем я могу вам помочь.request_contact=True
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         key_oven1 = types.KeyboardButton(text='отправить телефон',request_contact=True)
@@ -29,22 +29,41 @@ def start(m):
 
 
 @bot.message_handler(content_types=['text'])
-def oshibka(message):
+def oshibka(m):
     if prov != 1:
-        bot.send_message(message.chat.id, 'Неверно, нажмите на кнопку.')
+        bot.send_message(m.chat.id, 'Неверно, нажмите на кнопку.')
+    if m.text == 'Выбрать автомобиль 🚗':
+        keyboard = types.InlineKeyboardMarkup()
+        # По очереди готовим текст и обработчик для каждого знака зодиака
+        key_oven = types.InlineKeyboardButton(text='Екатеринбург',
+                                              url='https://auto.ru/diler/cars/used/autoset_rf_ekaterinburg/?from=dealer-listing-list&geo_radius=200 ')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven)
+        key_oven1 = types.InlineKeyboardButton(text='Самара',
+                                               url='https://www.avito.ru/i216871666/samara?page_from=from_shops_list')
+        # И добавляем кнопку на экран
+        keyboard.add(key_oven1)
+
+        bot.send_message(call.message.chat.id, 'Выберите город', reply_markup=keyboard)
 @bot.message_handler(content_types=['contact'])
 def contact(message):
+
     global prov
     prov = 1
-    keyboard = types.ReplyKeyboardRemove()
+    keyboard = types.ReplyKeyboardMarkup()
+    key_oven321 = types.KeyboardButton(text='Выбрать автомобиль 🚗')
+    # И добавляем кнопку на экран
+    keyboard1.add(key_oven321)
     bot.send_message(message.chat.id, 'Авторизация успешна!', reply_markup=keyboard)
+
+
 
     keyboard = types.InlineKeyboardMarkup()
     # По очереди готовим текст и обработчик для каждого знака зодиака
     key_oven = types.InlineKeyboardButton(text='АВТО В НАЛИЧИИ', callback_data='v_nal')
     # И добавляем кнопку на экран
     keyboard.add(key_oven)
-    key_telec = types.InlineKeyboardButton(text='ПОЛУЧИТЬ ПРЕДВАРИТЕЛЬНОЕ  РЕШЕНИЕ ПО КРЕДИТУ',
+    key_telec = types.InlineKeyboardButton(text='ЗАЯВКА НА КРЕДИТ',
                                            callback_data='pprpk')
     keyboard.add(key_telec)
     key_telec1 = types.InlineKeyboardButton(text='АВТО ПОДБОР', callback_data='avto_podbor')
@@ -57,8 +76,7 @@ def contact(message):
     keyboard.add(key_telec1111)
     key_telec11111 = types.InlineKeyboardButton(text='АКЦИИ', callback_data='sale')
     keyboard.add(key_telec11111)
-    key_telec111111 = types.InlineKeyboardButton(text='ОФОРМИТЬ ОСАГО ОНЛАЙН', callback_data='oso')
-    keyboard.add(key_telec111111)
+    
     bot.send_message(message.chat.id,
                      text='Со мной легко!\nВыберите из предложенных ниже вариантов, с чем я могу вам помочь.',
                      reply_markup=keyboard)
@@ -119,21 +137,21 @@ def callback_worker(call):
         key_oven = types.InlineKeyboardButton(text='АВТО В НАЛИЧИИ', callback_data='v_nal')
         # И добавляем кнопку на экран
         keyboard.add(key_oven)
-        key_telec = types.InlineKeyboardButton(text='ПОЛУЧИТЬ ПРЕДВАРИТЕЛЬНОЕ  РЕШЕНИЕ ПО КРЕДИТУ',
+        key_telec = types.InlineKeyboardButton(text='ЗАЯВКА НА КРЕДИТ',
                                                callback_data='pprpk')
         keyboard.add(key_telec)
-        key_telec1 = types.InlineKeyboardButton(text='АВТО ПОДБОР', callback_data='avto_podbor')
-        keyboard.add(key_telec1)
         key_telec11 = types.InlineKeyboardButton(text='ПРОДАТЬ АВТО', callback_data='prod_avto')
         keyboard.add(key_telec11)
+        key_telec1 = types.InlineKeyboardButton(text='АВТО ПОДБОР', callback_data='avto_podbor')
+        keyboard.add(key_telec1)
+
         key_telec111 = types.InlineKeyboardButton(text='ЗАПИСАТЬСЯ НА СЕРВИС', callback_data='zap_na_serv')
         keyboard.add(key_telec111)
         key_telec1111 = types.InlineKeyboardButton(text='ДОПОЛНИТЕЛЬНОЕ ОБОРУДОВАНИЕ', callback_data='dop_ob')
         keyboard.add(key_telec1111)
         key_telec11111 = types.InlineKeyboardButton(text='АКЦИИ', callback_data='sale')
         keyboard.add(key_telec11111)
-        key_telec111111 = types.InlineKeyboardButton(text='ОФОРМИТЬ ОСАГО ОНЛАЙН', callback_data='oso')
-        keyboard.add(key_telec111111)
+
         bot.send_message(call.message.chat.id,
                          text='Со мной легко!\nВыберите из предложенных ниже вариантов, с чем я могу вам помочь.',
                          reply_markup=keyboard)
@@ -294,7 +312,7 @@ def callback_worker(call):
                 keyboard.add(key_yes)  # добавляем кнопку в клавиатуру
                 key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
                 keyboard.add(key_no)
-                question = 'Вы родились в ' + str(age) + ', Вас зовут ' + name + ' ' + surname + '?'
+                question = 'Ваша дата рождения ' + str(age) + ', Вас зовут ' + name + ' ' + surname + '?'
                 bot.send_message(call.message.chat.id, text=question, reply_markup=keyboard)
             else:
                 keyboard = types.InlineKeyboardMarkup()
@@ -312,7 +330,7 @@ def callback_worker(call):
         # И добавляем кнопку на экран
         keyboard.add(key_oven111111111111)
 
-        bot.send_message(call.message.chat.id, 'Благодарим! \nМы создали предварительную кредитную заявку. \nПосле получения ответа от банков, наш кредитный специалист свяжется с вами. ', reply_markup=keyboard)
+        bot.send_message(call.message.chat.id,'Благодарим! \nНаш специалист свяжется с вами, чтобы завершить процедуру подачи заявки ' )
         device.publish('amk_avtoset1/kredit','Дата рождения   ' + str(age) + '  ФИ  '+name+'  ' + surname)
     elif call.data == "no":
         keyboard = types.InlineKeyboardMarkup()
@@ -320,14 +338,7 @@ def callback_worker(call):
         # И добавляем кнопку на экран
         keyboard.add(key_oven111111111111)
         bot.send_message(call.message.chat.id,'Предварительная кредитная заявка отменена',reply_markup=keyboard)
-    if call.data == 'oso':
-        keyboard = types.InlineKeyboardMarkup()
-        key_oven111111111111 = types.InlineKeyboardButton(text='Вернуться в основное меню', callback_data='v_menu')
-        # И добавляем кнопку на экран
-        keyboard.add(key_oven111111111111)
-        key_oven11111111111 = types.InlineKeyboardButton(text='Оформить осаго',url='https://www.sravni.ru/?utm_source=yandex&utm_medium=cpc&utm_term=сравни%20ру&position_type=premium&utm_campaign=sravni_global_search_rf_brand_38656715&utm_placement=none_%7Bdevice%7D&utm_content=k50id--0100000014927457166_--cid--38656715--gid--3561736601--aid--11822103987--adp--no--pos--premium1--src--search_none--dvc--desktop--Казань_43_11822103987&yadclid=51105162&yadordid=23070178&yclid=10044948372400111615')
-        # И добавляем кнопку на экран
-        keyboard.add(key_oven11111111111)
+
         bot.send_message(call.message.chat.id, 'Оформить осаго онлайн', reply_markup=keyboard)
     if call.data == 'sale':
         keyboard = types.InlineKeyboardMarkup()
@@ -364,13 +375,13 @@ def callback_worker(call):
 
         bot.send_message(call.message.chat.id, 'Действующие акции', reply_markup=keyboard)
     if call.data =='osob':
-        bot.send_message(call.message.chat.id,'Дарим страховой полис на автомобиль, если стаж вашего вождения не превышает 3 х месяцев')
+        bot.send_message(call.message.chat.id,'Особые условия для тех, кто только получил права\nДарим страховой полис на автомобиль, если стаж вашего вождения не превышает 3 х месяцев')
     if call.data =='treid_in':
-        bot.send_message(call.message.chat.id, 'При сдачи авто в трейд ин, получите выгоду на новый автомобиль до 50 000р')
+        bot.send_message(call.message.chat.id, 'Скидка по трейд-ин\nПри сдачи авто в трейд ин, получите выгоду на новый автомобиль до 50 000р')
     if call.data =='salon':
-        bot.send_message(call.message.chat.id,'Нашли автомобиль на досках объявлений (авто ру, авито или дром)?\n Или хотите купить авто у друга?\n Оформите кредит через наш автосалон и получите дополнительную выгоду 20 000р ')
+        bot.send_message(call.message.chat.id,'Сделка через салон\nНашли автомобиль на досках объявлений (авто ру, авито или дром)?\n Или хотите купить авто у друга?\n Оформите кредит через наш автосалон и получите дополнительную выгоду 20 000р ')
     if call.data =='servis':
-        bot.send_message(call.message.chat.id,'Скидка при первом посещении 30%\nМасляный сервис за 3750р\nБесплатная диагностика автомобиля\n(предварительные акции) ')
+        bot.send_message(call.message.chat.id,'Сервисные акции\nСкидка при первом посещении 30%\nМасляный сервис за 3750р\nБесплатная диагностика автомобиля\n(предварительные акции) ')
     if call.data == 'dop_ob':
         keyboard = types.InlineKeyboardMarkup()
         # По очереди готовим текст и обработчик для каждого знака зодиака
@@ -379,7 +390,7 @@ def callback_worker(call):
         keyboard.add(key_ove1n)
         key_oven12 = types.InlineKeyboardButton(text='Связаться со специалистом', url='https://t.me/sashakhasanova')
         keyboard.add(key_oven12)
-        bot.send_message(call.message.chat.id,'Выберите',reply_markup=keyboard)
+        bot.send_message(call.message.chat.id,'Дополнительное оборудование',reply_markup=keyboard)
     if call.data =='avto_podbor':
 
         keyboard = types.InlineKeyboardMarkup()
